@@ -521,15 +521,20 @@ let updateDialogDefaults = (html,skill,skilldice,talentdice) => {
   }
 
 
+  const d6SymbolMap = { 1: 'GRIT', 2: 'WIT', 3: 'SMARTS', 4: 'HEART', 5: 'STRANGE', 6: 'LUCK' };
+  const d8ImageMap = { 1: 'SHIVER_T_STRANGE2', 2: 'SHIVER_T_STRANGE', 3: 'SHIVER_T_STRANGE', 4: 'SHIVER_T_TALENT', 5: 'SHIVER_T_TALENT', 6: 'SHIVER_T_TALENT', 7: 'SHIVER_T_TALENT2', 8: 'SHIVER_T_TALENT2' };
+
   let dices6 = '';
   let dices8 = '';
 
   for(let i = 0; i < d6results.length; ++i){
-      dices6 += '<i class="fas fa-dice-d6"></i>'+d6results[i]+'  ';
+      const symbol = d6SymbolMap[d6results[i]];
+      dices6 += `<img src="systems/shiver/assets/dice/skill/SHIVER_${symbol}_small.png" width="36" height="36" title="${symbol[0] + symbol.slice(1).toLowerCase()}" />`;
   }
 
   for(let i = 0; i < d8results.length; ++i){
-      dices8 += '<i class="fas fa-dice-d8"></i>'+d8results[i]+'  ';
+      const img = d8ImageMap[d8results[i]];
+      dices8 += `<img src="systems/shiver/assets/dice/talent/${img}_small.png" width="36" height="36" />`;
   }
 
   let printsuccesses = '';
@@ -543,16 +548,12 @@ let updateDialogDefaults = (html,skill,skilldice,talentdice) => {
   let diceHtml = await roll.render();
   let results_html = `<h2>Rolled <b>${skill}</b></h2>
                       ${printsuccesses}
-                      <div></div>
                       <h3><span style="color:purple">strange: <b>${strange}</b></span></h3>
-                      <div></div>
                       <h3><span style="color:DarkOliveGreen">luck: <b>${luck}</b></span></h3>
-                      <div></div>
-                      <a class="inline-result">
-                      <span>${diceHtml}</span>
-                      <div></div>
-                      <span>${dices6}</span>
-                      <span>${dices8}</span>`
+                      <div style="background:#1a1a1a; border-radius:4px; padding:4px; display:flex; flex-wrap:wrap; gap:2px; align-items:center; margin-top:4px;">
+                        ${dices6}${dices6 && dices8 ? '<span style="color:#888;margin:0 4px;">|</span>' : ''}${dices8}
+                      </div>
+                      <div style="margin-top:4px;">${diceHtml}</div>`
 
   ChatMessage.create({
     type: CONST.CHAT_MESSAGE_STYLES.OTHER,
