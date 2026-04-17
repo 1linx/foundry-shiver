@@ -114,6 +114,40 @@ Handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {
 });
 
 /* -------------------------------------------- */
+/*  Scene Controls                              */
+/* -------------------------------------------- */
+
+Hooks.on("getSceneControlButtons", (controls) => {
+  controls.push({
+    name: "shiver-skill-die",
+    title: "Roll Skill Die",
+    icon: "fas fa-dice-d6",
+    button: true,
+    onClick: rollSkillDie
+  });
+});
+
+async function rollSkillDie() {
+  const symbolNames = {
+    1: "Grit",
+    2: "Wit",
+    3: "Smarts",
+    4: "Heart",
+    5: "Strange",
+    6: "Luck"
+  };
+
+  const roll = new Roll("1d6");
+  await roll.evaluate();
+
+  const symbolName = symbolNames[roll.total];
+  await roll.toMessage({
+    flavor: `Skill Die: <strong>${symbolName}</strong>`,
+    speaker: ChatMessage.getSpeaker()
+  });
+}
+
+/* -------------------------------------------- */
 /*  Ready Hook                                  */
 /* -------------------------------------------- */
 
