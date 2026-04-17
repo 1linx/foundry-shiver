@@ -12,6 +12,22 @@
 @import 'global/grid';
 @import 'global/flex';
 
+/* Scene controls */
+i.shiver-icon-strange {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  -webkit-mask-image: url('../assets/dice/skill/SHIVER_STRANGE_small.png');
+  mask-image: url('../assets/dice/skill/SHIVER_STRANGE_small.png');
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  background-color: #a78bfa;
+}
+
 /* Styles limited to shiver sheets */
 .shiver {
   @import 'components/forms';

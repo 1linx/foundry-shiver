@@ -123,7 +123,7 @@ Hooks.on("getSceneControlButtons", (controls) => {
   controls.push({
     name: "shiver",
     title: "Shiver",
-    icon: "fas fa-dice-d6",
+    icon: "shiver-icon-strange",
     layer: "shiver",
     activeTool: "shiver-skill-die",
     tools: [
