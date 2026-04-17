@@ -154,8 +154,9 @@ async function rollSkillDie() {
   await roll.evaluate();
 
   const symbolName = symbolNames[roll.total];
+  const imgSrc = `systems/shiver/assets/dice/skill/SHIVER_${symbolName.toUpperCase()}_small.png`;
   await roll.toMessage({
-    flavor: `Skill Die: <strong>${symbolName}</strong>`,
+    flavor: `<img src="${imgSrc}" width="30" height="30" style="vertical-align:middle; margin-right:4px;"/><strong>${symbolName}</strong>`,
     speaker: ChatMessage.getSpeaker()
   });
 }
