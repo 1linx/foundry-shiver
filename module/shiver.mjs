@@ -118,13 +118,14 @@ Handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {
 /* -------------------------------------------- */
 
 Hooks.on("getSceneControlButtons", (controls) => {
-  controls.push({
+  const notes = controls.find(c => c.name === "notes");
+  if (!notes) return;
+  notes.tools.push({
     name: "shiver-skill-die",
     title: "Roll Skill Die",
     icon: "fas fa-dice-d6",
     button: true,
-    onClick: rollSkillDie,
-    tools: []
+    onClick: rollSkillDie
   });
 });
 
