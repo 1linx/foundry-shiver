@@ -123,7 +123,8 @@ Hooks.on("getSceneControlButtons", (controls) => {
     title: "Roll Skill Die",
     icon: "fas fa-dice-d6",
     button: true,
-    onClick: rollSkillDie
+    onClick: rollSkillDie,
+    tools: []
   });
 });
 
