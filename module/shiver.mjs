@@ -9,6 +9,7 @@ import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { shiver } from "./helpers/config.mjs";
 import { ShiverSkillDie } from "./system/dice.mjs";
 import { ShiverTalentDie } from "./system/dice.mjs";
+import ShiverControlsLayer from "./system/controls-layer.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -28,6 +29,7 @@ Hooks.once('init', async function() {
   CONFIG.shiver = shiver;
   CONFIG.Dice.terms["6"] = ShiverSkillDie;
   CONFIG.Dice.terms["8"] = ShiverTalentDie;
+  CONFIG.Canvas.layers.shiver = { group: "interface", layerClass: ShiverControlsLayer };
 
   /**
    * Set an initiative formula for the system
@@ -118,14 +120,23 @@ Handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {
 /* -------------------------------------------- */
 
 Hooks.on("getSceneControlButtons", (controls) => {
-  const notes = controls.find(c => c.name === "notes");
-  if (!notes) return;
-  notes.tools.push({
-    name: "shiver-skill-die",
-    title: "Roll Skill Die",
+  controls.push({
+    name: "shiver",
+    title: "Shiver",
     icon: "fas fa-dice-d6",
-    button: true,
-    onClick: rollSkillDie
+    layer: "shiver",
+    activeTool: "shiver-skill-die",
+    tools: [
+      {
+        name: "shiver-skill-die",
+        title: "Roll Skill Die",
+        icon: "fas fa-dice-d6",
+        button: true,
+        onChange: rollSkillDie
+      }
+    ],
+    onChange: () => {},
+    onToolChange: () => {}
   });
 });
 
